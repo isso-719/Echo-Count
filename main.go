@@ -29,6 +29,7 @@ func main() {
 	}
 	e.Renderer = renderer
 
+	// データベースに接続
 	db.Connect()
 	sqlDB, _ := db.DB.DB()
 	defer sqlDB.Close()
@@ -41,22 +42,28 @@ func main() {
 }
 
 func Index(c echo.Context) error {
+	// もしデータベースが空なのであれば、レコードを作成する
 	if err := db.DB.First(&models.Count{}).Error; err != nil {
 		db.DB.Create(&models.Count{Number: 0})
 	}
 
+	// 最初の要素を取得する
 	Count := models.Count{}
 	db.DB.Find(&Count)
 
 	return c.Render(http.StatusOK, "index.html", map[string]interface{}{
+		// 取得した Count モデルの Number フィールドを取得する
 		"number": Count.Number,
 	})
 }
 
+// プラスボタンを押したら、数字を増やす
 func Plus(c echo.Context) error {
+	// 最初の要素を取得する
 	Count := models.Count{}
 	db.DB.Find(&Count)
 
+	// モデルの Number フィールドを 1 増やす
 	Count.Number++
 	db.DB.Save(&Count)
 
