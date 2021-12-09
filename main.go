@@ -37,6 +37,10 @@ func main() {
 
 	e.GET("/", Index)
 	e.POST("/plus", Plus)
+	e.POST("/minus", Minus)
+	e.POST("/multi", Multi)
+	e.POST("/divide", Divide)
+	e.POST("/clear", Clear)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
@@ -65,6 +69,54 @@ func Plus(c echo.Context) error {
 
 	// モデルの Number フィールドを 1 増やす
 	Count.Number++
+	db.DB.Save(&Count)
+
+	return c.Redirect(http.StatusSeeOther, "/")
+}
+
+func Minus(c echo.Context) error {
+	// 最初の要素を取得する
+	Count := models.Count{}
+	db.DB.Find(&Count)
+
+	// モデルの Number フィールドを 1 減らす
+	Count.Number--
+	db.DB.Save(&Count)
+
+	return c.Redirect(http.StatusSeeOther, "/")
+}
+
+func Multi(c echo.Context) error {
+	// 最初の要素を取得する
+	Count := models.Count{}
+	db.DB.Find(&Count)
+
+	// モデルの Number フィールド ×2 する
+	Count.Number *= 2
+	db.DB.Save(&Count)
+
+	return c.Redirect(http.StatusSeeOther, "/")
+}
+
+func Divide(c echo.Context) error {
+	// 最初の要素を取得する
+	Count := models.Count{}
+	db.DB.Find(&Count)
+
+	// モデルの Number フィールドを ÷2 する
+	Count.Number /= 2
+	db.DB.Save(&Count)
+
+	return c.Redirect(http.StatusSeeOther, "/")
+}
+
+func Clear(c echo.Context) error {
+	// 最初の要素を取得する
+	Count := models.Count{}
+	db.DB.Find(&Count)
+
+	// モデルの Number フィールドを 0 にする
+	Count.Number = 0
 	db.DB.Save(&Count)
 
 	return c.Redirect(http.StatusSeeOther, "/")

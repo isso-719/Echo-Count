@@ -4,12 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Count</title>
 </head>
 <body>
-    {{ .number }}
+    <h1>{{ .number }}</h1>
     <form method="post" action="/plus">
         <input type="submit" value="+">
+    </form>
+    <form method="post" action="/minus">
+        <input type="submit" value="-">
+    </form>
+    <form method="post" action="/multi">
+        <input type="submit" value="×2">
+    </form>
+    <form method="post" action="/divide">
+        <input type="submit" value="÷2">
+    </form>
+    <form method="post" action="/clear">
+        <input type="submit" value="Clear">
     </form>
 </body>
 </html>
