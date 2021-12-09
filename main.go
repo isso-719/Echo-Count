@@ -42,6 +42,9 @@ func main() {
 	e.POST("/divide", Divide)
 	e.POST("/clear", Clear)
 
+	// 静的ファイルフォルダ /public を / にマッピングする
+	e.Static("/", "public")
+
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
