@@ -6,5 +6,5 @@ import (
 
 type Count struct {
 	gorm.Model
-	Number int `json:"count" param:"count"`
+	Number int `json:"number"`
 }
